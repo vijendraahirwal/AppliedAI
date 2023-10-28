@@ -1,6 +1,6 @@
 
 
-# Facial Expression Detection
+# A.I.ducation Analytics
 
 ## Team Members
 - Ronak 40221814
