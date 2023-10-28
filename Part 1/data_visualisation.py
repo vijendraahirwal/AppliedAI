@@ -28,13 +28,14 @@ def plot_histogram(main_directory,subdirectories):
 
 
 def display_random_images(main_directory, subdirectories, num_images_per_class=5):
-    fig, axs = plt.subplots(5, 5, figsize=(8.5, 11))  # Standard letter-sized page
+    fig, axs = plt.subplots(5, 5, figsize=(8.5, 11)) 
     plt.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01)
     randomly_chosen_image_paths=[]
 
     for i in range(5):
         for j in range(5):
-            class_name = random.choice(subdirectories)  # Randomly select a class
+            #random behaviour
+            class_name = random.choice(subdirectories)  
 
             subdir_path = os.path.join(main_directory, class_name)
 
@@ -54,35 +55,29 @@ def display_random_images(main_directory, subdirectories, num_images_per_class=5
 
 
 def plot_histograms_from_paths(image_paths):
-    fig, axs = plt.subplots(5, 5, figsize=(20, 25))  # Standard letter-sized page
+    fig, axs = plt.subplots(5, 5, figsize=(20, 25))  
     plt.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01)
-    # setting common x-label and y-label for the entire figure
     common_xlabel = "Pixel Intensity"
     common_ylabel = "Frequency"
-    # Add common x-label and y-label using fig.text
     fig.text(0.5, 0.00001, common_xlabel, ha='center')
     fig.text(0.00001, 0.5, common_ylabel, va='center', rotation='vertical')
    
 
     for i in range(5):
         for j in range(5):
-            idx = i * 5 + j  # Index for the current image path
+            idx = i * 5 + j 
             if idx < len(image_paths):
                 image_path = image_paths[idx]
                 image = Image.open(image_path)
                 pixel_values = np.array(image).ravel()
 
                 axs[i, j].hist(pixel_values, bins=50, color='blue', alpha=0.7)
-                #axs[i, j].set_title(f'Image {idx + 1}')
+                
                 
 
     plt.show()
     
-    
-    
-    
-
-main_directory = 'G:\\Applied_AI_Project'
+main_directory = 'AppliedAI/Data'
 subdirectories = ['angry', 'bored', 'focused', 'neutral']
 plot_histogram(main_directory, subdirectories)
 chosen_images_paths=display_random_images(main_directory, subdirectories)
