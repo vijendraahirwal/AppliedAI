@@ -21,7 +21,9 @@ The aim of this project is to develop an efficient and accurate system for class
 5. **image_labeling.py**: This python script iterates over all the images inside the directories and labels them in this format <class_label_name>_XXXX.jpg, where XXX is the sequence number.
 
 ## Steps to Run the Project
-Follow these steps to run the project:
+Follow these steps to run the project: 
+
+Before running any python script please make sure you have folder named Data for the images. 
 
 1. Run the `filtering_locating_faces.py` file.
 2. Run the `convert_greyscale_and_resize.py` file.
