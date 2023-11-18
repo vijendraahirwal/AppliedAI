@@ -153,7 +153,7 @@ def trainLoopOfTheNetwork(model,device,trainDataLoader,valDataLoader,lossFunctio
         val_accuracy_history.append(val_acc)
 
 
-        print('Epoch: {} \tTraining Loss: {:.8f} \tValidation Loss {:.8f} \tTraining Acuuarcy {:.3f}% \tValidation Acuuarcy {:.3f}%'
+        print('Epoch: {} \tTraining Loss: {:.8f} \tValidation Loss {:.8f} \tTraining Accuracy {:.3f}% \tValidation Accuracy {:.3f}%'
                                                             .format(e+1, train_loss,validation_loss,train_acc * 100, val_acc*100))
 
     return train_loss_history, train_accuracy_history, val_loss_history, val_accuracy_history
