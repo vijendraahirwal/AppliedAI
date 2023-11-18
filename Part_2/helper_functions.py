@@ -18,7 +18,6 @@ import sklearn
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, precision_score, recall_score, f1_score
 import matplotlib.pyplot as plt
 import cv2 
-from model_variant4 import VGG16
 from model_variant2 import ModelVariant2
 from model_variant3 import ModelVariant3
 from model_variant1 import ModelVariant1
@@ -72,8 +71,6 @@ def getModel(model_name,numberOfInputChannels, numberOfClasses):
         return ModelVariant3(numberOfInputChannels, numberOfClasses)
     elif(model_name == "experimental_model"):
         return ExperimentWithDepthAndFilter(numberOfInputChannels, numberOfClasses)
-    elif(model_name == "vgg16"):
-        return VGG16(numberOfInputChannels, numberOfClasses)
     else:
         raise Exception("Invalid model name")
     
@@ -379,12 +376,10 @@ def getmodelname():
     print("1. variant1")
     print("2. variant2")
     print("3. variant3")
-    print("4. variant4")
     option = input("Enter your choice: ")
     switcher = {
         "1": "variant1",
         "2": "variant2",
         "3": "variant3",
-        "4": "vgg16"
     }
     return switcher.get(option, "Invalid model name")
