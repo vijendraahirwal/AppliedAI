@@ -40,6 +40,8 @@ if face_img is not None:
     plt.show()
     input_tensor = transform(face_img).unsqueeze(0)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    #print('Using device:', device)
+
     input_tensor = input_tensor.to(device)
 
     # Make a prediction
