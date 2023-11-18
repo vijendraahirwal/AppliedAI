@@ -365,9 +365,9 @@ def saveBestHyperparameters(txt, path):
 #take input from user
 def getmodelname():
     print("Select a model from the following: ")
-    print("1. variant1")
-    print("2. variant2")
-    print("3. variant3")
+    print("1. Variant1")
+    print("2. Variant2")
+    print("3. Variant3")
     option = input("Enter your choice: ")
     switcher = {
         "1": "variant1",
