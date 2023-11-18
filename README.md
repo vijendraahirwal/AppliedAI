@@ -46,7 +46,7 @@ Before running any python script please make sure you have folder named Data for
 
 For Part-2 Model Creation and Testing
 
-5. Run the `train.py` file from Part-2 Folder
+5. Run the `train.py` file from Part-2 Folder.
    In the User input select option 2 to train Model_variant2
-7. Run the `application.py` file
+7. Run the `application.py` file.
    In the User Input provide a path of the image for which the facial expression needs to be identified
