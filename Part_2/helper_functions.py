@@ -1,7 +1,6 @@
 import common_vars as GLOBAL_VARS
 from sklearn.metrics import classification_report
 from torch.utils.data import DataLoader
-from torchvision import transforms
 from torchvision.transforms import ToTensor
 from torchvision.datasets import ImageFolder
 from torch.optim import Adam
@@ -13,19 +12,14 @@ from PIL import Image
 import torch.nn.functional as F
 from torchvision import transforms, models
 import os
-import numpy as np
 import sklearn
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, precision_score, recall_score, f1_score
-import matplotlib.pyplot as plt
 import cv2 
 from model_variant2 import ModelVariant2
 from model_variant3 import ModelVariant3
 from model_variant1 import ModelVariant1
-from experiment_depths_model import ExperimentWithDepthAndFilter
 from early_stopping import EarlyStopping
-import torch
 import torch.optim as optim
-from torch.utils.data import DataLoader
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
 from skorch import NeuralNetClassifier
@@ -69,8 +63,6 @@ def getModel(model_name,numberOfInputChannels, numberOfClasses):
         return ModelVariant2(numberOfInputChannels, numberOfClasses)
     elif(model_name == "variant3"):
         return ModelVariant3(numberOfInputChannels, numberOfClasses)
-    elif(model_name == "experimental_model"):
-        return ExperimentWithDepthAndFilter(numberOfInputChannels, numberOfClasses)
     else:
         raise Exception("Invalid model name")
     

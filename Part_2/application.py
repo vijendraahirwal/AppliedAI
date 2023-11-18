@@ -9,7 +9,6 @@ from PIL import Image
 import model_variant2
 import model_variant1
 import model_variant3
-import model_variant4
 import common_vars as GLOBAL_VARS 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -21,7 +20,6 @@ img_path = img_path.strip("\"'")
 #loaded_m=helperfunctions.loadModel(filePath="AppliedAI/Part_2/saved_model",modelArchitecture=model_variant2.ModelVariant2(numOfChannels=1,numOfClasses=4),savedModelName="mymodel.pth")
 
 loaded_m = helperfunctions.loadModel("AppliedAI/Part_2/saved_model/mymodel.pth")
-print(loaded_m)
 
 face_img = helperfunctions.loadExternalImage(imagePath=img_path,cascadeClassifierPath="AppliedAI/Part 1/haarcascade_frontalface_alt2.xml")
 if face_img is not None:
