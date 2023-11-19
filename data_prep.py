@@ -36,10 +36,6 @@ for l in data_catgories:
             dst = os.path.join(test_data_directory, file)
             shutil.copy(src, dst)
 
-
-
-
-
 directory = split_original_dataset
 
 for root, _, files in os.walk(directory):
@@ -49,14 +45,8 @@ for root, _, files in os.walk(directory):
                 os.remove(file_path)
                 print(f"Removed: {file_path}")
                 
-                
-                
-
-
-# Define the command to run
 command = 'find . -name ".DS_Store" -delete'
 
-# Run the command in the current working directory
 try:
     result = subprocess.run(command, shell=True, cwd=directory, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     if result.returncode == 0:
