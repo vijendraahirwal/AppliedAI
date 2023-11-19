@@ -6,7 +6,7 @@
 - Aayush 40272388
 
 ## Project Aim
-The aim of this project is to develop an efficient and accurate system for classifying facial expressions from given photos using Convolutional Neural Networks (CNN). This technology can significantly contribute to fields like human-computer interaction, psychology, and market research.
+The aim of this project is to develop an efficient and accurate system for classifying facial expressions from given photos using Convolutional Neural Networks (CNN).
 
 ## Overview of Project Files
 
