@@ -1,0 +1,78 @@
+<ConvolutionNeuralNetwork>
+
+#get all common vars variable config here load it in different tags 
+
+
+    <GROUP_ID> 1 </GROUP_ID>
+    <INIT_LR>  0.002 <INIT_LR> 
+    <BATCH_SIZE> = 32 </BATCH_SIZE>
+    <NUM_EPOCHS> = 100 </NUM_EPOCHS>
+    <TRAIN_SPLIT> 0.85 </TRAIN_SPLIT>
+    <VALIDATION_SPLIT> 1 - TRAIN_SPLIT </VALIDATION_SPLIT>
+    <VARIANT_USED> 2 </VARIANT_USED>
+    <OPTIMIZER> adam </OPTIMIZER>
+    <LOSS_FUNCTION> categorical_crossentropy </LOSS_FUNCTION>
+
+
+    <GROUP_ID> 2 </GROUP_ID>
+    <INIT_LR>  0.001 <INIT_LR> 
+    <BATCH_SIZE> = 64 </BATCH_SIZE>
+    <NUM_EPOCHS> = 100 </NUM_EPOCHS>
+    <TRAIN_SPLIT> 0.85 </TRAIN_SPLIT>
+    <VALIDATION_SPLIT> 1 - TRAIN_SPLIT </VALIDATION_SPLIT>
+    <VARIANT_USED> 2 </VARIANT_USED>
+    <OPTIMIZER> adam </OPTIMIZER>
+    <LOSS_FUNCTION> categorical_crossentropy </LOSS_FUNCTION>
+    <earlystopper> yes </earlystopper>
+
+    <GROUP_ID> 3 </GROUP_ID>
+    <INIT_LR>  0.001 <INIT_LR> 
+    <BATCH_SIZE> = 64 </BATCH_SIZE>
+    <NUM_EPOCHS> = 100 </NUM_EPOCHS>
+    <TRAIN_SPLIT> 0.85 </TRAIN_SPLIT>
+    <VALIDATION_SPLIT> 1 - TRAIN_SPLIT </VALIDATION_SPLIT>
+    <VARIANT_USED> 2 </VARIANT_USED>
+    <OPTIMIZER> sgd </OPTIMIZER>
+    <LOSS_FUNCTION> categorical_crossentropy </LOSS_FUNCTION>
+    <earlystopper> yes </earlystopper>
+
+
+    <GROUP_ID> 4 </GROUP_ID>
+    <INIT_LR>  0.001 <INIT_LR> 
+    <BATCH_SIZE> = 64 </BATCH_SIZE>
+    <NUM_EPOCHS> = 100 </NUM_EPOCHS>
+    <TRAIN_SPLIT> 0.85 </TRAIN_SPLIT>
+    <VALIDATION_SPLIT> 1 - TRAIN_SPLIT </VALIDATION_SPLIT>
+    <VARIANT_USED> 1 </VARIANT_USED>
+    <OPTIMIZER> sgd </OPTIMIZER>
+    <LOSS_FUNCTION> categorical_crossentropy </LOSS_FUNCTION>
+    <earlystopper> yes </earlystopper>
+
+
+    <GROUP_ID> 5 </GROUP_ID>
+    <INIT_LR>  0.001 <INIT_LR> 
+    <BATCH_SIZE> = 64 </BATCH_SIZE>
+    <NUM_EPOCHS> = 100 </NUM_EPOCHS>
+    <TRAIN_SPLIT> 0.85 </TRAIN_SPLIT>
+    <VALIDATION_SPLIT> 1 - TRAIN_SPLIT </VALIDATION_SPLIT>
+    <VARIANT_USED> 3 </VARIANT_USED>
+    <OPTIMIZER> sgd </OPTIMIZER>
+    <LOSS_FUNCTION> categorical_crossentropy </LOSS_FUNCTION>
+    <earlystopper> yes </earlystopper>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+</ConvolutionNeuralNetwork>
