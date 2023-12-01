@@ -5,7 +5,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import helper_functions as helperfunctions
-from cnn_building_blocks import conv_block
 from torchvision import transforms
 from matplotlib import image as mp_image
 from PIL import Image
@@ -13,13 +12,16 @@ import model_variant2
 import common_vars as GLOBAL_VARS
 import numpy as np
 import matplotlib.pyplot as plt
-# img_path = input("Enter Image Path")
-# Example usage:
-img_path = '/Users/ronakpatel/Downloads/angry_face.jpeg'
 
-loaded_m=helperfunctions.loadModel(modelArchitecture=model_variant2.ModelVariant2(numOfChannels=1,numOfClasses=4),savedModelName="Group_ID_2_mymodel.pth",directoryPath="AppliedAI/Part_2/saved_model")
+img_path = input("Enter Image Path: ")
+img_path = img_path.strip("\"'")
 
-face_img = helperfunctions.loadExternalImage(imagePath=img_path,cascadeClassifierPath="AppliedAI/Part 1/haarcascade_frontalface_alt2.xml")
+loaded_m=helperfunctions.loadModel(modelArchitecture=model_variant2.ModelVariant2(numOfChannels=1,numOfClasses=4),savedModelName="best_so_far_after_bias1.pth",directoryPath="Part_3/saved_models")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(device)
+loaded_m.to(device)
+
+face_img = helperfunctions.loadExternalImage(imagePath=img_path,cascadeClassifierPath="Part 1/haarcascade_frontalface_alt2.xml")
 
 if face_img is not None:
     

@@ -24,11 +24,13 @@ print(device)
 dataset = helperfunctions.loadWholeDataSet()
 
 num_splits = 10
+#Improvement over Step2
+#Keep the same data regardless of the model architecture
 skf = StratifiedKFold(n_splits=num_splits, shuffle=True, random_state=42)
 
 model = ModelVariant2(numOfChannels=1, numOfClasses=4)
 
-
+#PART 3 K-fold cross-validation loop
 # K-fold cross-validation loop
 for fold, (train_indices, test_indices) in enumerate(skf.split(dataset,dataset.targets)):
     print(f"Fold {fold + 1}/{num_splits}")

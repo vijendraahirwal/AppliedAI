@@ -77,12 +77,14 @@ def getTheDataLoader(train_data,val_data,test_data):
     
     return trainDataLoader, valDataLoader, testDataLoader
 
+
 def getTheDataLoader(train_data,val_data):
     
     trainDataLoader = DataLoader(train_data, shuffle=True,batch_size=GLOBAL_VARS.BATCH_SIZE)
     valDataLoader = DataLoader(val_data, batch_size=GLOBAL_VARS.BATCH_SIZE)
     
     return trainDataLoader, valDataLoader
+
 
 def getModel(model_name,numberOfInputChannels, numberOfClasses):
    
@@ -94,7 +96,8 @@ def getModel(model_name,numberOfInputChannels, numberOfClasses):
         return ModelVariant3(numberOfInputChannels, numberOfClasses)
     else:
         raise Exception("Invalid model name")
-    
+
+
 def getOptimizer(model,optimizer_name,learning_rate):
     if(optimizer_name == "adam"):
         return Adam(model.parameters(), lr=learning_rate)
@@ -119,7 +122,6 @@ def evaluate(model, dataloader,criterion,device):
     total_loss = 0.0
     correct_predictions = 0
     total_samples = 0
-    
 
     with torch.no_grad():
         for inputs, labels in dataloader:
@@ -144,9 +146,9 @@ def evaluate(model, dataloader,criterion,device):
     accuracy = correct_predictions / total_samples
     average_loss = total_loss / len(dataloader)
 
-
     return all_labels, all_preds,average_loss
     
+
 def printClassificationReport(trueLabels,predictedLabels,classes):
     print("Classification Report:\n", classification_report(trueLabels, predictedLabels, target_names=classes))
     
@@ -172,16 +174,10 @@ def train(model, train_dataset, optimizer,device, criterion,save_path,patience=5
             inputs = inputs.to(device)
             labels = labels.to(device)
             optimizer.zero_grad()
-
-            
             outputs = model(inputs)
             loss = criterion(outputs, labels)
-
-            
             loss.backward()
             optimizer.step()
-
-           
             running_loss += loss.item()
 
             _, predicted = torch.max(outputs, 1)
@@ -218,6 +214,7 @@ def train(model, train_dataset, optimizer,device, criterion,save_path,patience=5
         if valid_loss < best_valid_loss:
             best_valid_loss = valid_loss
             current_patience = 0
+            #Improvement over PART 2
             # Save the best model
             torch.save(model.state_dict(), os.path.join(save_path, 'best_model.pth'))
         else:
@@ -225,6 +222,7 @@ def train(model, train_dataset, optimizer,device, criterion,save_path,patience=5
             if current_patience >= patience:
                 print(f'Validation loss has not improved. Early stopping...')
                 break
+
 
 def generateConfusionMatrix(trueLabels,predictedLabels,classes):
     # Generate and display a confusion matrix
@@ -269,48 +267,32 @@ def get_true_label(file_path):
         return 3
 
 
-# def inputCategory():
-#     input=input("Enter the category")
-#     if(input=="young"):
-#         return "young"
-#     elif(input=="middle_age"):
-#         return "middle_age"
-#     elif(input=="senior"):
-#         return "senior"
-#     else:
-#         raise Exception("Invalid input")    
-
-def Loop():
+#pending generate the bias analysis table
+def generateBiasAnalysisTable(model_path):
     Category = [1,2,3]
     Gender = ["m","f"]
     for i in Category:
-        evaluateModelOnSpecificCategory('Age Category',i)
+        evaluateModelOnSpecificCategory('Age Category',i,model_path)
     
     for i in Gender:
-        evaluateModelOnSpecificCategory('Gender',i)
+        evaluateModelOnSpecificCategory('Gender',i,model_path)
     
-def evaluateModelOnSpecificCategory(Column,value):
+
+def evaluateModelOnSpecificCategory(Column,value,model_path):
     # Load CSV file containing file_path, gender, and age
-    csv_file_path = 'test_labels1.csv'
+    csv_file_path = 'test_labels.csv'
     df = pd.read_csv(csv_file_path)
 
-    # Filter images based on gender
-
-    #images = df[df['Gender'] =='m' ]['Image Path'].tolist()
-    
-
-    #images = df[df['Gender'] =='f']['Image Path'].tolist()
     images = df[df[Column] ==value]['Image Path'].tolist()
 
     # Initialize your model and load the pre-trained weights
     model = ModelVariant2(numOfChannels=1, numOfClasses=4)
-    model_path = 'Part_3/saved_models/best_model.pth'
+    model_path = r'Part_3\saved_models\best_so_far_after_bias1.pth'
     model = load_model(model, model_path)
 
     # Define loss function and optimizer
-    criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
-
+    # criterion = nn.CrossEntropyLoss()
+    # optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     # Evaluate on the test set
     model.eval()
@@ -339,11 +321,9 @@ def evaluateModelOnSpecificCategory(Column,value):
             
             true_label = get_true_label(file_path)  # Implement this function
             test_labels.append(true_label)
-
-
     
     # # Calculate evaluation metrics
-    print("#############################################")
+    print("##########################")
     print("AFTER RESOLVING THE BIAS")
     #print("For Senior people")
     if Column=='Age Category':
@@ -366,9 +346,8 @@ def evaluateModelOnSpecificCategory(Column,value):
     print(f"Recall: {recall}")
     print(f"F1 Score: {f1}")
     print()
-#Loop()
 
-      
+
 def separatelyRunOnTestSet(model, directory_path):
     model.eval()
 
@@ -383,7 +362,7 @@ def separatelyRunOnTestSet(model, directory_path):
     test_predictions = []
     test_labels = []
 
-    for root, dirs, files in os.walk("Part_3/dataset_inshape/test"):
+    for root, dirs, files in os.walk(directory_path):
        
         for file in files:
             file_path = os.path.join(root, file)
@@ -401,7 +380,6 @@ def separatelyRunOnTestSet(model, directory_path):
             elif(label=="neutral"):
                 label=3
 
-
             # Read the image
             input_image = mp_image.imread(file_path) # Convert to grayscale
 
@@ -416,43 +394,6 @@ def separatelyRunOnTestSet(model, directory_path):
             true_label = label
             test_labels.append(true_label)
 
-    
-
-    
-    # # List all files in the directory
-    # #image_files = [f for f in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, f))]
-
-    # # Transformation pipeline
-    # transform = transforms.Compose([
-    #     transforms.ToPILImage(),
-    #     transforms.Grayscale(num_output_channels=1),
-    #     transforms.ToTensor(),
-    #     transforms.Normalize((0.5,), (0.5,), inplace=True)
-    # ])
-
-    
-
-    # # Loop through each image in the directory
-    # for file_name in image_files:
-    #     file_path = os.path.join(directory_path, file_name)
-
-    #     # Read the image
-    #     input_image = mp_image.imread(file_path) # Convert to grayscale
-
-    #     # Apply transformations
-    #     input_tensor = transform(input_image).unsqueeze(0)
-
-    #     # Make predictions
-    #     output = model(input_tensor)
-    #     _, predicted = torch.max(output, 1)
-    #     test_predictions.append(predicted.item())
-        
-    #     true_label = label
-    #     test_labels.append(true_label)
-
-    # # Print or use test_predictions and test_labels as needed
-    # print("Predictions:", test_predictions)
-    # print("True Labels:", test_labels)
 
     # Calculate and print evaluation metrics
     accuracy = accuracy_score(test_labels, test_predictions)
@@ -470,15 +411,14 @@ def separatelyRunOnTestSet(model, directory_path):
     # Printing classification report
     #printClassificationReport(trueLabels=test_labels,predictedLabels=test_predictions,classes=GLOBAL_VARS.DATA_CLASSES)
 
-   
 
-
-model = ModelVariant2(numOfChannels=1, numOfClasses=4)
-model_path = 'Part_3/saved_models/best_so_far_after_bias1.pth'
-model = load_model(model, model_path)
-
-directory_path = 'Part_3/dataset_inshape/test/neutral'
-separatelyRunOnTestSet(model, directory_path)
+def generate_consufionMatrix_on_test_set(model_path,directory_path):
+    model = ModelVariant2(numOfChannels=1, numOfClasses=4)
+    model_path = 'Part_3/saved_models/best_so_far_after_bias1.pth'
+    model = load_model(model, model_path)
+    print("Model loaded successfully")
+    print("Evaluating the model on test set...")
+    separatelyRunOnTestSet(model, directory_path)
     
     
 def runCV(train_loader,valid_loader,dataset_classes,device):
@@ -489,7 +429,6 @@ def runCV(train_loader,valid_loader,dataset_classes,device):
         criterion=nn.CrossEntropyLoss(),
         lr=0.001, verbose=1
     )
-    
     
     params = {
     'batch_size' : [7,20,50,70],
@@ -544,10 +483,6 @@ def getScores(trueLabels,predictedLabels,typeOfScore = "notype",averageType = "n
     else:
         raise Exception("Invalid type of score")
     
-    
-
-    
-
    
 def plotTrainingHistory(trainLossHistory, trainAccuracyHistory, valLossHistory, valAccuracyHistory):
     epochs = range(1, len(trainLossHistory) + 1)
@@ -560,8 +495,6 @@ def plotTrainingHistory(trainLossHistory, trainAccuracyHistory, valLossHistory, 
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
     plt.legend()
-
-    
     plt.subplot(1, 2, 2)
     plt.plot(epochs, trainAccuracyHistory, label='Training Accuracy', marker='o')
     plt.plot(epochs, valAccuracyHistory, label='Validation Accuracy', marker='o')
@@ -569,22 +502,16 @@ def plotTrainingHistory(trainLossHistory, trainAccuracyHistory, valLossHistory, 
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.legend()
-
     plt.tight_layout()
-
     plt.show()
- 
-    
- 
- 
-        
+
+
 def saveModel(model_state_dict,directoryPath=os.getcwd(),modelName="model.pth"):
     try:
         torch.save(model_state_dict, directoryPath+"/"+modelName)
         print("Model saved successfully")
     except:
         print("Error in saving the model")
-        
 
     
 def loadModel(modelArchitecture,savedModelName, directoryPath):
@@ -594,13 +521,9 @@ def loadModel(modelArchitecture,savedModelName, directoryPath):
     return model
     
     
-    
 #write me a function that loads the image and shows it
 def loadAndShowImage(imagePath):
     try:
-        # image = plt.imread(imagePath)
-        # plt.imshow(image) 
-        # plt.show()
         
         img = cv2.imread()
         plt.imshow(img, cmap='gray')
@@ -632,15 +555,9 @@ def loadExternalImage(imagePath,cascadeClassifierPath):
             return face
                 
         else:
-            print("No faces detected")
-                
-                
-                
-            
-                
+            print("No faces detected")         
     except Exception as e:
         print(f"Error loading the image {imagePath}: {str(e)}")
-    
     
     
 def calcDimensons(width, height, padding, kernel_size, stride):
@@ -658,7 +575,6 @@ def saveBestHyperparameters(txt, path):
     print("Saved best hyperparameters to file.")
     
     
-    
 def k_fold_cross_validation(dataset, k=10):
     skf = StratifiedKFold(n_splits=k, shuffle=True)
     for train_index, test_index in skf.split(dataset.data, dataset.targets):
@@ -670,3 +586,38 @@ def log_metrics_to_table(metrics_dict):
     df.loc['Average'] = df.mean()
     return df
 
+
+ # # List all files in the directory
+    # #image_files = [f for f in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, f))]
+
+    # # Transformation pipeline
+    # transform = transforms.Compose([
+    #     transforms.ToPILImage(),
+    #     transforms.Grayscale(num_output_channels=1),
+    #     transforms.ToTensor(),
+    #     transforms.Normalize((0.5,), (0.5,), inplace=True)
+    # ])
+
+    
+
+    # # Loop through each image in the directory
+    # for file_name in image_files:
+    #     file_path = os.path.join(directory_path, file_name)
+
+    #     # Read the image
+    #     input_image = mp_image.imread(file_path) # Convert to grayscale
+
+    #     # Apply transformations
+    #     input_tensor = transform(input_image).unsqueeze(0)
+
+    #     # Make predictions
+    #     output = model(input_tensor)
+    #     _, predicted = torch.max(output, 1)
+    #     test_predictions.append(predicted.item())
+        
+    #     true_label = label
+    #     test_labels.append(true_label)
+
+    # # Print or use test_predictions and test_labels as needed
+    # print("Predictions:", test_predictions)
+    # print("True Labels:", test_labels)
