@@ -33,6 +33,11 @@ model = helperfunctions.getModel(model_name,numberOfInputChannels,numberOfClasse
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+####################################
+##To run the mode on GPU
+print(device)
+model.to(device)
+
 train_data, test_data = helperfunctions.loadAndTransformDataSet()
 
 #70% for training, 15% for validation
