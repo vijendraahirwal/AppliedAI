@@ -77,7 +77,7 @@ def plot_histograms_from_paths(image_paths):
 
     plt.show()
     
-main_directory = 'AppliedAI/Data'
+main_directory = r'Data'
 subdirectories = ['angry', 'bored', 'focused', 'neutral']
 plot_histogram(main_directory, subdirectories)
 chosen_images_paths=display_random_images(main_directory, subdirectories)

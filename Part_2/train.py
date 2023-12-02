@@ -112,8 +112,6 @@ helperfunctions.printClassificationReport(trueLabels=true_labels,predictedLabels
 # Plotting training history
 helperfunctions.plotTrainingHistory(trainLossHistory=train_loss_history,trainAccuracyHistory= train_accuracy_history, valLossHistory=val_loss_history, valAccuracyHistory=val_accuracy_history)
 
-#oldcode
-#helperfunctions.saveModel(model_state_dict=model.state_dict(),directoryPath="AppliedAI/Part_2/saved_model",modelName="mymodel.pth")
 
-helperfunctions.saveModel(model,numberOfInputChannels,numberOfClasses, directoryPath="AppliedAI/Part_2/saved_model", modelName="mymodel.pth")
+helperfunctions.saveModel(model,numberOfInputChannels,numberOfClasses, directoryPath=r"Part_2/saved_model", modelName="mymodel.pth")
  

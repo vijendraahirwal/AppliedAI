@@ -6,8 +6,8 @@ EPOCHS = 100
 TRAIN_SPLIT = 0.85
 VALIDATION_SPLIT = 1 - TRAIN_SPLIT
 
-TRAINING_DATA_DIR ="AppliedAI/Part_2/dataset_inshape/train"
-TESTING_DATA_DIR = "AppliedAI/Part_2/dataset_inshape/test"
+TRAINING_DATA_DIR =r"Part_2/dataset_inshape/train"
+TESTING_DATA_DIR = r"Part_2/dataset_inshape/test"
 
 DATA_CLASSES = ('Angry', 'Focused', 'Bored', 'Neutral')
 

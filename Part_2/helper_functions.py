@@ -205,8 +205,8 @@ def runCV(train_loader,valid_loader,dataset_classes,device):
             break
     print('SEARCH COMPLETE')
     print("best score: {:.3f}, best params: {}".format(gs.best_score_, gs.best_params_))
-    saveBestHyperparameters(gs.best_score_, f"AppliedAI/Part_2/best_params.yml")
-    saveBestHyperparameters(gs.best_params_, f"AppliedAI/Part_2/best_params.yml")
+    saveBestHyperparameters(gs.best_score_, f"Part_2/best_params.yml")
+    saveBestHyperparameters(gs.best_params_, f"Part_2/best_params.yml")
 
 
 def getScores(trueLabels,predictedLabels,typeOfScore = "notype",averageType = "notype"):
