@@ -2,7 +2,7 @@ from PIL import Image
 import os
 
 # the source folder
-source_dir = "AppliedAI/Data"
+source_dir = r"Data"
 
 # desired size of image
 new_image_size = (48, 48)
@@ -15,7 +15,7 @@ for root, dirs, files in os.walk(source_dir):
         if img_file.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp')):
             # Constructing the full path
             image_path = os.path.join(root, img_file)
-        
+            #print(image_path)
             with Image.open(image_path) as img:
                 # Resizing
                 resized_img = img.resize(new_image_size)

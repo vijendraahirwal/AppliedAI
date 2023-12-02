@@ -6,8 +6,8 @@ import os
 import subprocess
 
 print("Setting up appropriate directories...")
-original_dataset = "AppliedAI/Data"
-split_original_dataset = "AppliedAI/Part_2/dataset_inshape"
+original_dataset = r"Data"
+split_original_dataset = r"Part_2/dataset_inshape"
 rand = int(time.time() % 1000)
 #if not make it 
 if not os.path.exists(split_original_dataset):

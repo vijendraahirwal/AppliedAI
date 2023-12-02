@@ -19,6 +19,7 @@ def preprocess_images_in_directories(base_dir):
             for filename in os.listdir(directory_path):
                 if filename.lower().endswith(('.jpg', '.jpeg', '.png', '.bmp')):
                     image_path = os.path.join(directory_path, filename)
+                    #print(f"Processing {image_path}")
                     final_image = preprossesing_image(image_path)
                     cv2.imwrite(image_path, final_image)
                 
@@ -26,5 +27,5 @@ def preprocess_images_in_directories(base_dir):
             print(f"The file '{directory_path}' does not exist.")
 
 
-source_dir = "AppliedAI/Data"
+source_dir = r"Data"
 preprocess_images_in_directories(source_dir)

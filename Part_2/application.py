@@ -16,12 +16,10 @@ import matplotlib.pyplot as plt
 img_path = input("Enter Image Path: ")
 img_path = img_path.strip("\"'")
 
-#old code
-#loaded_m=helperfunctions.loadModel(filePath="AppliedAI/Part_2/saved_model",modelArchitecture=model_variant2.ModelVariant2(numOfChannels=1,numOfClasses=4),savedModelName="mymodel.pth")
 
-loaded_m = helperfunctions.loadModel("AppliedAI/Part_2/saved_model/mymodel.pth")
+loaded_m = helperfunctions.loadModel(r"Part_2/saved_model/mymodel.pth")
 
-face_img = helperfunctions.loadExternalImage(imagePath=img_path,cascadeClassifierPath="AppliedAI/Part 1/haarcascade_frontalface_alt2.xml")
+face_img = helperfunctions.loadExternalImage(imagePath=img_path,cascadeClassifierPath=r"Part 1/haarcascade_frontalface_alt2.xml")
 if face_img is not None:
     
     transform = transforms.Compose([
@@ -43,6 +41,7 @@ if face_img is not None:
     #print('Using device:', device)
 
     input_tensor = input_tensor.to(device)
+    loaded_m = loaded_m.to(device) 
 
     # Make a prediction
     with torch.no_grad():

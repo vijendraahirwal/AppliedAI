@@ -73,7 +73,7 @@ Ensure the `Data` folder is set up correctly and all paths are relative to the *
 This part of the project focuses on identifying any biases in the trained model and implementing strategies to mitigate these biases.
 
 ### Prerequisites
-- Dataset related folders such as `DataKF`, `dataset_inshape`, `updated_datasetinshape`, `UpdatedDataKF` and `saved_models` with four subfolders for facial expression classes.
+- Dataset related folders such as `DataKF`, `dataset_inshape`, `updated_datasetinshape`, `UpdatedDataKF` with four subfolders for facial expression classes and `saved_models` .
 
 ### Improvements over Step-2
 - `generate_confusion_matrix_on_test_set.py` file is used to run an existing model over test dataset to generate confusion matrix and check the performance of the model
