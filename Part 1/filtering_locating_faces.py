@@ -2,10 +2,10 @@ import cv2
 import os
 
 # source path
-source_dir = 'AppliedAI/Data'
+source_dir = r'Data'
 
 # XML cascade classifier file for detecting face
-cascade_classifier_path = "AppliedAI/Part 1/haarcascade_frontalface_alt2.xml"
+cascade_classifier_path = r"Part 1/haarcascade_frontalface_alt2.xml"
 
 # Loading cascade file
 face_cascade_classifier = cv2.CascadeClassifier(cascade_classifier_path)
@@ -39,4 +39,5 @@ for root, dirs, files in os.walk(source_dir):
     for file in files:
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp')):
             image_path = os.path.join(root, file)
+            #print(f"Processing {image_path}")
             detect_and_save_faces_in_place(image_path)
